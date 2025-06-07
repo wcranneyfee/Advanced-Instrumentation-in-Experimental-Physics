@@ -9,8 +9,8 @@ power_v_resistance = pd.read_csv('Data/Power vs Resistance.csv')
 R = np.array(r_int_fitting['R']) # Resistance in ohms
 V = np.array(r_int_fitting['V']) # Voltage in ohms
 
-dR = 0.1 # Ohms
-dV = 0.2 # Volts
+dR = R*0.01 # Ohms
+dV = 0.1 # Volts
 
 dI = np.sqrt((dV/R)**2 + ((V*dR)/R**2)**2) # Current Error in A
 
@@ -42,6 +42,10 @@ plt.errorbar(power_v_resistance['R'], power_v_resistance['P'], yerr=dP, linestyl
 plt.xlabel(r" Resistance $[\Omega]$")
 plt.ylabel("Power [mW]")
 plt.legend()
+
+for i in range(2):
+    plt.figure(i+1)
+    plt.savefig(f"Plots/Project3Fig{i+1}.png")
 
 print(f"The max maximum power is {max_power} +/- {dP.iloc[max_resistance_index['P']]} mW and it occurs when the resistance is {max_resistance} +/- {dR_int} \u03A9.")
 plt.show()
